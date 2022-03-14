@@ -1,11 +1,11 @@
 {
   "name": "afa-bank",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is an api for a light mobile wallet",
   "main": "src/server.js",
   "scripts": {
     "test": "cypress run",
-    "start": "nodemon src/server.js"
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",

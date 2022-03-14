@@ -1,28 +1,26 @@
 const {Pool} = require("pg");
-require('dotenv').config()
-// console.log(process.env.PG_CONNECTION_STRING)
-const pool = new Pool({
-    connectionString: process.env.PG_CONNECTION_STRING
-})
 
+// ! REMOVE "dotenv" dep
+// ! ADD ENV VARS IN HEROKU (process.env.DATABASE_URL) AND (process.env.TOKEN_SECRET)
+// const isProduction = process.env.NODE_ENV === "production";
+//connection config for production
 // const pool = new Pool({
-//     user : 'postgres',
-//     password: 'postgres',
-//     host : 'localhost',
-//     port :  '5432',
-//     database: 'afa-test'
+//     connectionString: isProduction ? process.env.DATABASE_URL : process.env.HEROKU_POSTGRESQL_GREEN_URL,
+//     ssl: true
 // });
 
-// pool.on('connect', () => console.log('working'))
+const pool = new Pool({
+   ssl: {
+    rejectUnauthorized: false
+  },
+  connectionString: process.env.DATABASE_URL
+});
 
-// pool.query('SELECT * FROM USERS').then( result => console.log(result.rows)).catch(err => console.log(err))
+// const pool = new Pool({
+//   connectionString : process.env.PG_CONNECTION_STRING_CHANGED
+// });
 
-// async function kk() {
-//      let o = await pool.query('SELECT * FROM USERS')
-//      console.log(o.rows);
-// }
-
-// kk()
+pool.on('connect', () => console.log('Working'))
 
 
 module.exports = pool;
