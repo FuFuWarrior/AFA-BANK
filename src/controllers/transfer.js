@@ -145,7 +145,7 @@ exports.transfer =  async function(req, res){
         res.status(200).json({
             data: {
                 status: 'success',
-                message : 'transfer completed'
+                message : 'Transfer completed'
             }
         })
     }else if (!result.success){
@@ -161,7 +161,6 @@ exports.transfer =  async function(req, res){
                 data: {
                     status: 'error',
                     error: 'Account does not exist',
-                    result
                 }
             });
         }
@@ -169,8 +168,8 @@ exports.transfer =  async function(req, res){
     else{
         res.status(500).json({
             data:{
-                status: 'failure',
-                error: error
+                status: 'error',
+                error: 'Something unexpected happened'
             }
         })
     }

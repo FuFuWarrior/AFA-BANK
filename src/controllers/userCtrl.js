@@ -55,7 +55,7 @@ class UserCtrl{
                         res.status(201).json({
                             status: 'success',
                             data: { 
-                                message: 'User Created'
+                                message: 'User created'
                             }
                         });                      
                     }
@@ -63,15 +63,14 @@ class UserCtrl{
             }else{
                 res.status(500).json({
                     status: 'error',
-                    error,
-                    message: 'Something Went Wrong'
+                    message: 'Something unexpected happened'
                 });
             }
         }catch(error){
             res.status(500).json({
                 status: 'error',
                 error,
-                message: 'Something Unexpected Happened'
+                message: 'Something unexpected happened'
             });
         }
     }

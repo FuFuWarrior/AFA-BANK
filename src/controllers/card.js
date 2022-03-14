@@ -7,7 +7,6 @@
  const axios = require('axios').default;
  const { creditAccount } = require('../utils/transactions');
  const pool = require('../models/db');
- const { response } = require('express');
  require('dotenv').config();
  
 
@@ -140,13 +139,13 @@ exports.charge = async (req, res) => {
   // console.log(req.body, 'request body');
 
   if (result.success){
-    console.log(result, 'success')
     res.status(200).json({
+      status: 'success',
       data: result
     });
   }else if (result.success === false){
-    console.log(result, 'failure');
     res.status(404).json({
+      status: 'error',
       data: result
     });
   }else if (result.response){
@@ -171,12 +170,10 @@ exports.charge = async (req, res) => {
         }
     }
     */
-    console.log(result.response.data, 'axios error')
     res.status(404).json({
       data: result.response.data
     });
   }else{
-    console.log(result, 'server error');
     res.status(500).json({
       data: result
     });
