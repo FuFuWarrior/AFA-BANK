@@ -7,7 +7,7 @@
  const axios = require('axios').default;
  const { creditAccount } = require('../utils/transactions');
  const pool = require('../models/db');
- require('dotenv').config();
+//  require('dotenv').config();
  
 
  

@@ -25,7 +25,7 @@ async function creditAccount({ amount, account_id, purpose, metadata, client, re
     await client.query('LOCK TABLE transactions in ROW EXCLUSIVE MODE');
 
     const query = `INSERT INTO TRANSACTIONS(transaction_type, transaction_purpose, amount,
-      account_id, reference, balance_before, balance_after, metadata) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
+      account_holder, reference, balance_before, balance_after, metadata) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
 
     const balanceBefore = Number(account.rows[0].current_balance);
 
@@ -52,7 +52,7 @@ async function creditAccount({ amount, account_id, purpose, metadata, client, re
     }
     
     const creditQuery = `INSERT INTO TRANSACTIONS(transaction_type, transaction_purpose, amount, 
-      account_id, reference, balance_before, balance_after, metadata) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
+      account_holder, reference, balance_before, balance_after, metadata) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
 
     // const debitQuery = `INSERT INTO TRANSACTIONS(transaction_type, transaction_purpose, amount, 
     //       account_id, reference, balance_before, balance_after, metadata) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
@@ -106,7 +106,7 @@ async function debitAccount({amount, account_id, purpose, metadata, client, refe
     await client.query('LOCK TABLE transactions in ROW EXCLUSIVE MODE');
     
     let query = `INSERT INTO TRANSACTIONS(transaction_type, transaction_purpose, amount, 
-      account_id, reference, balance_before, balance_after, metadata) VALUES($1, $2, $3, $4, $5, $6, $7, $8)`;
+      account_holder, reference, balance_before, balance_after, metadata) VALUES($1, $2, $3, $4, $5, $6, $7, $8)`;
   
     const values = ['DEBIT', purpose, Number(amount) / 100, account_id, reference, balanceBefore, newBalance, metadata]; 
   
@@ -133,7 +133,7 @@ async function debitAccount({amount, account_id, purpose, metadata, client, refe
     }
   
     const debitQuery = `INSERT INTO TRANSACTIONS(transaction_type, transaction_purpose, amount, 
-          account_id, reference, balance_before, balance_after, metadata) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
+          account_holder, reference, balance_before, balance_after, metadata) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
   
     const debitValues = ['DEBIT', purpose, amount, account_id, reference, Number(metadata.senderOldBalance), Number(metadata.senderNewBalance), metadata];
   

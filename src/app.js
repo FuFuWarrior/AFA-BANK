@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const pgSessionStore = require('connect-pg-simple')(session);
-require('dotenv').config()
+// require('dotenv').config()
 
 const pool = require('./models/db');
 const userRoutes = require('./routes/userRoutes');
@@ -43,8 +43,6 @@ app.use(express.json());
 app.disable("x-powered-by");
 
 app.get("*", function(req, res){
-    console.log(req.session);
-    console.log(req.sessionID);
     // req.session.destroy((err) => {
     //     if (!err){
     //         console.log(req.session)
